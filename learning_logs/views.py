@@ -52,6 +52,8 @@ def new_entry(request, topic_id):
     if request.method != 'POST':
         # No data submitted, create a blank form.
         form = EntryForm()
+    if topic.owner != request.user:
+        raise Http404
     else:
         form = EntryForm(request.POST)
         if form.is_valid():
